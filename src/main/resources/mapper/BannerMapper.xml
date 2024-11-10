@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ykjzone.mapper.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.ykjzone.pojo.Banner">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="image_url" jdbcType="VARCHAR" property="image_url" />
+    <result column="link_to" jdbcType="VARCHAR" property="link_to" />
+    <result column="pub_time" jdbcType="TIMESTAMP" property="pub_time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, priority, image_url, link_to, pub_time
+  </sql>
+  <select id="selectByExample" parameterType="com.ykjzone.pojo.BannerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from novel_banner
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from novel_banner
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from novel_banner
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Banner" useGeneratedKeys="true">
+    insert into novel_banner (priority, image_url, link_to, 
+      pub_time)
+    values (#{priority,jdbcType=INTEGER}, #{image_url,jdbcType=VARCHAR}, #{link_to,jdbcType=VARCHAR}, 
+      #{pub_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Banner" useGeneratedKeys="true">
+    insert into novel_banner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="image_url != null">
+        image_url,
+      </if>
+      <if test="link_to != null">
+        link_to,
+      </if>
+      <if test="pub_time != null">
+        pub_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="image_url != null">
+        #{image_url,jdbcType=VARCHAR},
+      </if>
+      <if test="link_to != null">
+        #{link_to,jdbcType=VARCHAR},
+      </if>
+      <if test="pub_time != null">
+        #{pub_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ykjzone.pojo.Banner">
+    update novel_banner
+    <set>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="image_url != null">
+        image_url = #{image_url,jdbcType=VARCHAR},
+      </if>
+      <if test="link_to != null">
+        link_to = #{link_to,jdbcType=VARCHAR},
+      </if>
+      <if test="pub_time != null">
+        pub_time = #{pub_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ykjzone.pojo.Banner">
+    update novel_banner
+    set priority = #{priority,jdbcType=INTEGER},
+      image_url = #{image_url,jdbcType=VARCHAR},
+      link_to = #{link_to,jdbcType=VARCHAR},
+      pub_time = #{pub_time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

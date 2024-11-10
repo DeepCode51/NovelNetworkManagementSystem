@@ -1,0 +1,16 @@
+@import 'constants';
+
+footer {
+    min-width: $pageWidth;
+    margin-top: 50px;
+    padding: 40px 0;
+    background: #eeeeee;
+    .statement {
+        p {
+            text-align: center;
+            color: #9a9a9a;
+            font-size: 14px;
+            margin:7px 0;
+        }
+    }
+}

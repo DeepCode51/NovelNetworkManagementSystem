@@ -1,0 +1,718 @@
+@import '../common/init';
+@import '../common/constants';
+
+/* 头部 */
+@mixin header {
+    width: 100%;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    h2 {
+        display: inline-block;
+    }
+    span {
+        font-size: 14px;
+        color: #777777;
+    }
+}
+/* ul 列表 */
+@mixin list {
+    ul {
+        li {
+            border-bottom: 1px solid #eeeeee;
+            overflow: hidden;
+            line-height: 35px;
+            &:last-of-type {
+                border-bottom: 0 solid #eeeeee;
+            }
+            span.novel-cate {
+                a {
+                    //margin-left: -4px;
+                    font-size: 14px;
+                    color: #777777;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+
+            }
+            span.novel-name {
+                a {
+                    //margin-left: -8px;
+                    font-size: 16px;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+            }
+            span.novel-author {
+                a {
+                    font-size: 13px;
+                    float: right;
+                    display: inline-block;
+                    color: #888888;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+            }
+        }
+    }
+}
+@mixin floating($width,$fontSize,$color,$paddingLeft){
+  width: $width;
+  position: relative;
+  a {
+    width: 100%;
+    line-height: 38px;
+    display: block;
+    color: $color;
+    font-size: $fontSize;
+    text-align:center;
+    border-bottom: 2px solid #454545;
+  }
+  &:hover {
+    background: #454545;
+    a {
+      border-top: 2px solid #ff3333;
+    }
+    .dropdown {
+      display: block;
+    }
+  }
+  .dropdown {
+    width: $width;
+    position: absolute;
+    background: #454545;
+    display: none;
+    a {
+      height: 42px;
+      line-height: 42px;
+      text-align: left;
+      padding-left: $paddingLeft;
+      color: #cccccc;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      border: 0 solid #000000;
+      &:hover {
+        background: #000000;
+      }
+    }
+  }
+}
+
+header {
+    min-width: $pageWidth;
+    .header-top {
+      $height: 42px;
+      width: 100%;
+      height: $height;
+      background: #545454;
+      z-index:100;
+      @import '../common/blank_header';
+    }
+    .header-middle {
+        height: 170px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .middle-container {
+            width: $pageWidth;
+            margin: 0 auto;
+            height: 100%;
+            overflow: hidden;
+            // logo
+            .logo {
+                width: 188px;
+                height: 55px;
+                margin-top: 40px;
+                float: left;
+                margin-right: 200px;
+                a {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../../images/novel/novel-cate/logo_cate.png');
+                }
+            }
+            // 搜索框
+            form{
+                float: left;
+                width: 400px;
+                margin-top: 50px;
+                #search-text{
+                    padding: 0 10px;
+                    height: 40px;
+                    width: 348px;
+                    float: left;
+                    border: 1px solid #dbdbdb;
+                    box-sizing: border-box;
+                }
+
+                #search-submit{
+                    height: 0px;
+                    width: 0px;
+                }
+                span {
+                    float: left;
+                    font-size: 24px;
+                    color: #fff;
+                    background: #bf2c24;
+                    text-align: center;
+                    line-height: 40px;
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+    @import 'index_cate_img';   // 导入背景和logo
+}
+.main {
+    .wrapper {
+        width: $pageWidth;
+        margin: 0 auto;
+        /* 第二部分 推荐 */
+        .recommend-wrapper {
+
+            margin-top: 20px;
+            overflow: hidden;
+            .left {
+                float: left;
+                width: 954px;
+                margin-right: 30px;
+                // 标签
+                .category-tag {
+                  ul {
+                    width: 100%;
+                    height: 40px;
+                    line-height: 40px;
+                    overflow: hidden;
+                    border-bottom: 1px solid #000000;
+                    li {
+                      float: left;
+                      margin: 0 12px;
+                      a {
+                        font-size: 15px;
+                        font-weight: bold;
+                        &:hover {
+                          color: #ff0000;
+                        }
+                      }
+                    }
+                    b {
+                      float: left;
+                      margin: 0 5px;
+                    }
+                  }
+                }
+                .body {
+                    // 本周强推
+                    .recommend-left {
+                        float: left;
+                        width: $sideWidth;
+                        background: $assistDeepColor;
+                        padding: 15px;
+                        box-sizing: border-box;
+                        .left-header {
+                            width: 100%;
+                            padding: 5px 0;
+                            h3 {
+                                display: block;
+                                text-align: center;
+                            }
+                            span {
+                                font-size: 14px;
+                                color: #777777;
+                            }
+                        }
+                        @include list;
+                    }
+                    // 编辑推荐
+                    .recommend-body {
+                        float: left;
+                        width: $middleWidth;
+                        margin-left: $boundaryWidth;
+                        background: $assistDeepColor;
+                        .novel-media {
+                            width: 100%;
+                            ul {
+                                overflow: hidden;
+                                width: 100%;
+                                padding: 15px;
+                                box-sizing: border-box;
+
+                                display: flex;
+                                flex-direction: row;
+                                flex-wrap: wrap;
+                                justify-content: space-between;
+                                li {
+                                    float: left;
+                                    width: 120px;
+                                    padding: 20px 0 10px;
+                                    .novel-img {
+                                        width: 105px;
+                                        height: 140px;
+                                        margin: 0 auto;
+                                        a {
+                                            display: block;
+                                            width: 100%;
+                                            height: 100%;
+                                            img {
+                                                width: 100%;
+                                                height: 100%;
+                                            }
+                                        }
+                                    }
+                                    .novel-info {
+                                        width: 100%;
+                                        position: relative;
+                                        margin-top: 30px;
+                                        .novel-title {
+                                            width: 100%;
+                                            text-align: center;
+                                            font-size: 16px;
+                                            font-weight: bold;
+                                        }
+                                        .novel-profile {
+                                            width: 100%;
+                                            text-align: center;
+                                            font-size: 14px;
+                                            color: #454545;
+                                            margin-top: 8px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .novel-text {
+                            overflow: hidden;
+                            border-top: 1px solid #cccccc;
+                            padding-top: 10px;
+                            margin: 0px 15px 30px 15px;
+                            .hint {
+                                margin-top: 11px;
+                                float: left;
+                                position:relative;
+                                width: 60px;
+                                span {
+                                    display: inline-block;
+                                    width: 32px;
+                                    padding: 5px 9px;
+                                    font-size: 16px;
+                                    color: #ffffff;
+                                    background: #ff0000;
+                                }
+                                cite {
+                                    position: absolute;
+                                    top: 19px;
+                                    display: inline-block;
+                                    width: 0;
+                                    height: 0;
+                                    border-style: solid;
+                                    border-width: 6px;
+                                    border-color: transparent transparent transparent #ff0000;
+                                }
+                            }
+                            ul {
+                                float: left;
+                                overflow: hidden;
+                                width: 618px;
+                                li {
+                                    width: 50%;
+                                    float: left;
+                                    height: 35px;
+                                    line-height: 35px;
+                                    .novel-name {
+                                        font-size:15px;
+                                        color: #555555;
+                                    }
+                                    i {
+                                        font-size: 15px;
+                                    }
+                                    .novel-profile {
+                                        text-indent: 2em;
+                                        font-size:13px;
+                                        color: #888888;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .rank {
+                float: right;
+                width: $sideWidth;
+                .rank-header {
+                    @include header;
+                }
+                ul {
+                    li {
+                        overflow: hidden;
+                        &:last-of-type {
+                            .num-box {
+                                span {
+                                    padding: 0;
+                                }
+                            }
+                            .novel-box {
+                                border-bottom: 0 solid #eeeeee;
+                            }
+                        }
+                        &.unfold {
+                            overflow: hidden;
+                            border-bottom: 1px solid #eeeeee;
+                            padding: 5px 0;
+                            .novel-info-box {
+                                float: left;
+                                position: relative;
+                                width: 144px;
+                                height: 96px;
+                                .novel-1 {
+                                    display: inline-block;
+                                    background: #ff0000;
+                                    padding: 0 3px;
+                                    color: #fff;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                }
+                                .novel-name {
+                                    margin-top: 10px;
+                                    display: block;
+                                    a {
+                                        font-size: 17px;
+                                        &:hover {
+                                            color: #ff0000;
+                                        }
+                                    }
+                                }
+                                .novel-author {
+                                    position: absolute;
+                                    bottom: 0;
+                                    a {
+                                        font-size: 13px;
+                                        color: #aaaaaa;
+                                        &:hover {
+                                            color: #ff0000;
+                                        }
+                                    }
+                                    i {
+                                        margin: 5px;
+                                        color: #aaaaaa;
+                                    }
+                                }
+                            }
+                            .novel-img-box {
+                                width: 72px;
+                                height: 96px;
+                                float: right;
+                                a {
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+                        .num-box {
+                            float: left;
+                            width: 22px;
+                            height: 35px;
+                            line-height: 35px;
+                            span {
+                                background: #dedede;
+                                color: #797979;
+                                font-size: 13px;
+                                padding: 0 4px;
+                                font-weight: bold;
+                                border-radius: 2px;
+                                &.num-2 {
+                                    color: #fff;
+                                    background: #ff8800;
+                                }
+                                &.num-3 {
+                                    color: #fff;
+                                    background: #ffcc00;
+                                }
+                            }
+                        }
+                        .novel-box {
+                            float: left;
+                            width: 194px;
+                            line-height: 35px;
+                            border-bottom: 1px solid #eeeeee;
+                            span.novel-cate {
+                                a {
+                                    //margin-left: -4px;
+                                    font-size: 15px;
+                                    color: #777777;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+
+                            }
+                            span.novel-name {
+                                a {
+                                    //margin-left: -8px;
+                                    font-size: 15px;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+                            }
+                            span.novel-author {
+                                a {
+                                    font-size: 14px;
+                                    float: right;
+                                    display: inline-block;
+                                    color: #888888;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // 第三部分 新书
+        .new-novel {
+            overflow: hidden;
+            margin-top: 30px;
+            .new-left {
+                width: 954px;
+                margin-right: 30px;
+                float: left;
+                .rank-header {
+                    @include header;
+                }
+                .novel-media {
+                    width: 100%;
+                    ul {
+                        overflow: hidden;
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        li {
+                            overflow: hidden;
+                            width: 300px;
+                            float: left;
+                            padding: 30px 0;
+                            .novel-img {
+                                float: left;
+                                width: 72px;
+                                height: 96px;
+                                margin-right: 12px;
+                                a {
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                            .novel-info {
+                                width: 216px;
+                                height: 96px;
+                                float: right;
+                                position: relative;
+                                .novel-title {
+
+                                }
+                                .novel-profile {
+                                    text-indent: 2em;
+                                    font-size: 13px;
+                                    color: #454545;
+                                    margin-top: 8px;
+                                }
+                                .novel-author {
+                                    width: 100%;
+                                    position: absolute;
+                                    bottom: 0;
+                                    a.author-name {
+                                        span {
+                                            color: #858585;
+                                            font-size: 14px;
+                                        }
+                                    }
+                                    span.nav-number {
+                                        float: right;
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        border: 1px solid #ff2222;
+                                        color: #ff2222;
+                                        padding: 0 3px;
+                                    }
+                                    span.nav-tag {
+                                        float: right;
+                                        display: inline-block;
+                                        font-size: 14px;
+                                        border: 1px solid #888888;
+                                        color: #888888;
+                                        padding: 0 3px;
+                                        margin-right: 8px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .new-rank {
+                width: $sideWidth;
+                float: right;
+                .rank-header {
+                    @include header;
+                }
+                ul {
+                    li {
+                        overflow: hidden;
+                        &:last-of-type {
+                            .num-box {
+                                span {
+                                    padding: 0;
+                                }
+                            }
+                            .novel-box {
+                                border-bottom: 0 solid #eeeeee;
+                            }
+                        }
+                        &.unfold {
+                            overflow: hidden;
+                            border-bottom: 1px solid #eeeeee;
+                            padding: 5px 0;
+                            .novel-info-box {
+                                float: left;
+                                position: relative;
+                                width: 144px;
+                                height: 96px;
+                                .novel-1 {
+                                    display: inline-block;
+                                    background: #ff0000;
+                                    padding: 0 3px;
+                                    color: #fff;
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    border-radius: 2px;
+                                    margin-top: 5px;
+                                }
+                                .novel-name {
+                                    margin-top: 10px;
+                                    display: block;
+                                    a {
+                                        font-size: 17px;
+                                        &:hover {
+                                            color: #ff0000;
+                                        }
+                                    }
+                                }
+                                .novel-author {
+                                    position: absolute;
+                                    bottom: 0;
+                                    a {
+                                        font-size: 13px;
+                                        color: #aaaaaa;
+                                        &:hover {
+                                            color: #ff0000;
+                                        }
+                                    }
+                                    i {
+                                        margin: 5px;
+                                        color: #aaaaaa;
+                                    }
+                                }
+                            }
+                            .novel-img-box {
+                                width: 72px;
+                                height: 96px;
+                                float: right;
+                                a {
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+                        .num-box {
+                            float: left;
+                            width: 22px;
+                            height: 35px;
+                            line-height: 35px;
+                            span {
+                                background: #dedede;
+                                color: #797979;
+                                font-size: 13px;
+                                padding: 0 4px;
+                                font-weight: bold;
+                                border-radius: 2px;
+                                &.num-2 {
+                                    color: #fff;
+                                    background: #ff8800;
+                                }
+                                &.num-3 {
+                                    color: #fff;
+                                    background: #ffcc00;
+                                }
+                            }
+                        }
+                        .novel-box {
+                            float: left;
+                            width: 194px;
+                            line-height: 35px;
+                            border-bottom: 1px solid #eeeeee;
+                            span.novel-cate {
+                                a {
+                                    //margin-left: -4px;
+                                    font-size: 15px;
+                                    color: #777777;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+
+                            }
+                            span.novel-name {
+                                a {
+                                    //margin-left: -8px;
+                                    font-size: 15px;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+                            }
+                            span.novel-author {
+                                a {
+                                    font-size: 14px;
+                                    float: right;
+                                    display: inline-block;
+                                    color: #888888;
+                                    &:hover {
+                                        color: #ff2222;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@import "../common/footer";

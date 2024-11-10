@@ -1,0 +1,162 @@
+@import 'init';
+@import 'constants';
+
+
+@mixin floating($width,$fontSize,$color,$paddingLeft){
+  width: $width;
+  position: relative;
+  a {
+    width: 100%;
+    line-height: 38px;
+    display: block;
+    color: $color;
+    font-size: $fontSize;
+    text-align:center;
+    border-bottom: 2px solid #454545;
+  }
+  &:hover {
+    background: #454545;
+    a {
+      border-top: 2px solid #ff3333;
+    }
+    .dropdown {
+      display: block;
+    }
+  }
+  .dropdown {
+    width: $width;
+    position: absolute;
+    background: #454545;
+    display: none;
+    a {
+      height: 42px;
+      line-height: 42px;
+      text-align: left;
+      padding-left: $paddingLeft;
+      color: #cccccc;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      border: 0 solid #000000;
+      &:hover {
+        background: #000000;
+      }
+    }
+  }
+}
+div {
+  z-index:100;
+  width: $pageWidth;
+  $height: 42px;
+  margin: 0 auto;
+  // 导航
+  ul {
+    float: left;
+    li {
+      float: left;
+      height: $height;
+      width: 58px;
+
+      &:first-of-type {
+        @include floating(125px,18px,#f9f9f9,20px);
+      }
+
+      &:last-of-type {
+        @include floating(76px,15px,#cccccc,10px);
+      }
+      a {
+        display: block;
+        color: #cccccc;
+        text-align: center;
+        line-height: $height - 4px;
+        height: $height;
+        font-size: 15px;
+        box-sizing: border-box;
+        border-top: 2px solid #545454;
+        border-bottom: 2px solid #545454;
+        &:hover {
+            border-top: 2px solid #ff3333;
+            background: #454545;
+        }
+      }
+    }
+  }
+  // 搜索
+  .search {
+    float: right;
+    width: 230px;
+    height: $height;
+    margin-left: 20px;
+    form {
+      width: 100%;
+      height: 100%;
+      .text {
+        float: left;
+        width: 180px;
+        height: 26px;
+        border: none;
+        margin-top: 8px;
+        border-bottom: 1px solid #bbbbbb;
+        background: #545454;
+        line-height: 30px;
+        color: #bbbbbb;
+        font-size: 14px;
+        padding: 0 2px;
+      }
+      .submit-btn {
+        float: left;
+        margin-top: 8px;
+        margin-left: 4px;
+        border: none;
+        width: 28px;
+        height: 28px;
+        color: #ffffff;
+        font-size: 18px;
+        text-align: center;
+        line-height: 28px;
+        cursor: pointer;
+      }
+    }
+  }
+  // 登录注册
+  .auth-group {
+    float: right;
+    height: $height;
+    line-height: $height;
+    width: 250px;
+    text-align: center;
+    a {
+      margin: 0 5px;
+      font-size: 15px;
+      color: #cccccc;
+      &:hover {
+        color:#ffffff;
+      }
+      &.sign-in {
+      }
+      &.sign-up {
+        margin-left: 5px;
+      }
+    }
+
+  }
+  // 我的书架
+  .my-book {
+    float: right;
+    width:100px;
+    height: $height;
+    text-align: center;
+    line-height: $height;
+    &:hover {
+      background: #454545;
+    }
+    i {
+      color: #ffffff;
+      font-size: 15px;
+    }
+    span {
+      color: #ffffff;
+      font-size: 15px;
+    }
+  }
+}

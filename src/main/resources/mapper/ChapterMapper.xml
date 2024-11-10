@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ykjzone.mapper.ChapterMapper">
+  <resultMap id="BaseResultMap" type="com.ykjzone.pojo.Chapter">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="words_num" jdbcType="INTEGER" property="words_num" />
+    <!--<result column="novel_id" jdbcType="VARCHAR" property="novel_id" />-->
+    <result column="pub_date" jdbcType="TIMESTAMP" property="pub_date" />
+    <association property="novel" javaType="Novel">
+      <id column="nid" property="id" />
+      <result column="nname" property="name" />
+      <result column="chapters_num" property="chapters_num" />
+      <result column="n_pub_date" property="pub_date" />
+      <result column="cover_url" property="cover_url" />
+      <result column="n_words_num" property="words_num" />
+      <association property="category" javaType="Category">
+        <id column="caid" property="id" />
+        <result column="caname" property="name" />
+      </association>
+      <association property="tag" javaType="Tag">
+        <id column="tid" property="id" />
+        <result column="tname" property="name" />
+      </association>
+      <association property="author" javaType="User">
+        <id column="uid" property="id" />
+        <result column="uname" property="username" />
+        <result column="pen_name" property="pen_name" />
+      </association>
+    </association>
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ykjzone.pojo.Chapter">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Detail_Column_List">
+    ch.id, title, number, ch.words_num, novel_id, ch.pub_date,
+    n.id nid, n.name nname, n.chapters_num, n.pub_date n_pub_date, cover_url, n.words_num n_words_num,
+    ca.id caid, ca.name caname,
+    t.id tid, t.name tname,
+    u.id uid, u.username uname, pen_name
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, number, words_num, novel_id, pub_date
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ykjzone.pojo.ChapterExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Detail_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from novel_chapter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.ykjzone.pojo.ChapterExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from novel_chapter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Detail_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from novel_chapter ch, novel n, novel_category ca, novel_tag t, xsauth_user u
+    where ch.novel_id = n.id and n.category_id = ca.id and n.tag_id = t.id and n.author_id = u.id and ch.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectChaptersByNovelId" parameterType="java.lang.String"
+ resultType="Chapter">
+    select * from novel_chapter where novel_id =  #{id,jdbcType=VARCHAR} order by number desc
+  </select>
+  <select id="selectIdByNovelAndNum" resultType="java.lang.String">
+    select id from novel_chapter where novel_id = #{novel_id} and number = #{number}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from novel_chapter
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByNovelId" parameterType="java.lang.String">
+    delete from novel_chapter
+    where novel_id = #{novel_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Chapter">
+    insert into novel_chapter (id, title, number, words_num,novel_id, pub_date, content)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, #{words_num,jdbcType=INTEGER},
+      #{novel_id,jdbcType=VARCHAR}, #{pub_date,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Chapter" useGeneratedKeys="true">
+    insert into novel_chapter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="words_num != null">
+        words_num,
+      </if>
+      <if test="novel_id != null">
+        novel_id,
+      </if>
+      <if test="pub_date != null">
+        pub_date,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="words_num != null">
+        #{words_num,jdbcType=INTEGER},
+      </if>
+      <if test="novel_id != null">
+        #{novel_id,jdbcType=VARCHAR},
+      </if>
+      <if test="pub_date != null">
+        #{pub_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ykjzone.pojo.Chapter">
+    update novel_chapter
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="words_num != null">
+        words_num = #{words_num,jdbcType=INTEGER},
+      </if>
+      <if test="novel_id != null">
+        novel_id = #{novel_id,jdbcType=VARCHAR},
+      </if>
+      <if test="pub_date != null">
+        pub_date = #{pub_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ykjzone.pojo.Chapter">
+    update novel_chapter
+    set title = #{title,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      words_num = #{words_num,jdbcType=INTEGER},
+      novel_id = #{novel_id,jdbcType=VARCHAR},
+      pub_date = #{pub_date,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ykjzone.pojo.Chapter">
+    update novel_chapter
+    set title = #{title,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      words_num = #{words_num,jdbcType=INTEGER},
+      novel_id = #{novel_id,jdbcType=VARCHAR},
+      pub_date = #{pub_date,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

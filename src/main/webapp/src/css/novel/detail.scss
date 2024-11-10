@@ -1,0 +1,407 @@
+@import '../common/init';
+@import '../common/constants';
+
+header {
+  min-width: 1200px;
+  height: 42px;
+  width: 100%;
+  background: #545454;
+  z-index:100;
+  @import '../common/blank_header';
+}
+.main {
+  min-width: 1200px;
+  width: 100%;
+  // 背景图片
+  .background {
+    height: 350px;
+    min-width:1200px;
+    width: 100%;
+    background-size: cover;
+    background: url("../../images/novel/detail/detail_back.jpg");
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+  // 路径
+  .path {
+    width: 100%;
+    margin-top: 20px;
+    .path-wrapper {
+      width: 990px;
+      margin: 0 auto;
+      div {
+        width: 220px;
+        border-radius: 5px;
+        background: #333333;
+        opacity: 0.7;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 5px;
+        a {
+          font-size: 14px;
+          color: #ffffff;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        i {
+          font-size: 14px;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+  // 详情
+  .body {
+    width: 100%;
+    margin-top: 120px;
+    .body-wrapper {
+      background: #fff;
+      width: 990px;
+      margin: 0 auto;
+
+      .info-wrapper { // 上
+        overflow: hidden;
+        box-sizing: border-box;
+        border: 2px solid #cacaca;
+        border-bottom: 0 solid  #cacaca;
+        padding: 20px;
+
+
+        .novel-img {
+          float: left;
+          padding-right: 30px;
+          width: 144px;
+          height: 192px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .novel-info {
+          float: left;
+          // 标题
+          .novel-name {
+            overflow: hidden;
+            height: 40px;
+            line-height: 40px;
+            h1 {
+              float: left;
+              color: #666666;
+            }
+            .author-name {
+              margin-left: 30px;
+              float: left;
+              display: inline-block;
+            }
+          }
+          // 标签
+          .novel-tag {
+            margin: 5px 0;
+            span {
+              display: inline-block;
+              border-radius: 13px;
+              border: 1px solid #0af;
+              padding: 2px 8px;
+              font-size: 14px;
+              color: #06a;
+              margin: 5px;
+              &:first-of-type{
+                margin: 0;
+              }
+            }
+          }
+          // 备注
+          .novel-remark {
+            margin: 5px 0;
+          }
+          // 小说字数、人气
+          .novel-number {
+            overflow: hidden;
+            margin: 17px 0;
+            div {
+              float: left;
+              span {
+                font-size: 20px;
+                font-weight: bold;
+              }
+            }
+            .num-recommend {
+              margin: 0 40px;
+            }
+          }
+          // 操作按钮
+          .novel-btn {
+            a {
+              display: inline-block;
+              padding: 7px 15px;
+              background: #c00;
+              margin-left: 20px;
+              color: #ffffff;
+              font-size: 15px;
+              &:first-of-type {
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+      .detail-wrapper { // 下
+        overflow: hidden;
+        box-sizing: border-box;
+        margin-top: 50px;
+        // 切换标签
+        .switch {
+          border-bottom: 1px solid #cccccc;
+          li {
+            width: 120px;
+            height: 36px;
+            line-height: 36px;
+            display: inline-block;
+            font-size: 21px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid #ffffff;
+            color: #999999;
+            cursor: pointer;
+            .small-text {
+              font-size: 16px;
+              color: #999999;
+            }
+            &.profile-tag {
+              border-bottom: 2px solid #ff3300;
+              color: #ff3300;
+            }
+          }
+        }
+        // 作品信息
+        .profile {
+          //display: none;
+          overflow: hidden;
+          .profile-left {
+            width: 710px;
+            margin-right: 30px;
+            float: left;
+            // 简介
+            .profile-text {
+              padding: 30px 0 50px 30px;
+              line-height: 30px;
+              font-size: 15px;
+            }
+            // 标签/动态/更新
+            .profile-center {
+              height: 300px;
+              //background: pink;
+              border-top: 1px solid #cccccc;
+              // 行
+              div {
+                height: 70px;
+                line-height: 69px;
+                overflow: hidden;
+                // 左边标题
+                .left-title {
+                  float: left;
+                  width: 150px;
+                  color: #aaaaaa;
+                }
+                // 右边内容
+                .right-content {
+                  float: left;
+                  box-sizing: border-box;
+                  border-bottom: 1px solid #cccccc;
+                  width: 560px;
+                  color: #666666;
+                  span {
+
+                  }
+                }
+              }
+            }
+            // 二维码
+            .qr {
+              width: 100%;
+              .qr-group {
+                .qr-img {
+                  margin: 0 auto;
+                  width: 200px;
+                  height: 200px;
+                  img {
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+                span.hint {
+                  display: block;
+                  margin: 0 auto;
+                  width: 240px;
+                  text-align: center;
+                  font-size: 15px;
+                }
+              }
+
+            }
+          }
+          .profile-right {
+            width: 250px;
+            float: right;
+            margin-top: 30px;
+            // 作者信息
+            .author-info {
+              height: 332px;
+              background: $assistDeepColor;
+              // 头像
+              .avatar-group {
+                overflow: hidden;
+                .avatar-img {
+                  width: 100px;
+                  height: 100px;
+                  margin: 25px auto 15px;
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                  }
+                }
+                .author-name {
+                  text-align: center;
+                  color: #666666;
+                  font-size: 20px;
+                  margin: 0 15px;
+                  padding-bottom: 30px;
+                  border-bottom: 1px solid #cccccc;
+                }
+              }
+              // info
+              .info-group {
+                padding: 15px 20px;
+                overflow: hidden;
+                div {
+                  float: left;
+                  width: 70px;
+                  text-align: center;
+                  .div-img {
+                    margin-left: 11px;
+                    width: 48px;
+                    height: 48px;
+                    border: none;
+                    background-image: url(https://qidian.gtimg.com/qd/images/book_details/sprite.385d7.png);
+                    background-repeat: no-repeat;
+                  }
+                  .works {    // 作品总数
+                    background-position: -193px -80px;
+                  }
+                  .num-words {  // 累计字数
+                    background-position: -249px -150px;
+                  }
+                  .days {     // 创作天数
+                    background-position: -50px -222px;
+                  }
+                  .div-title {
+                    margin: 15px 0 8px 0;
+                    color:#777777;
+                    font-size: 14px;
+                  }
+                  .div-num {
+                    color: #dd0000;
+                  }
+                }
+              }
+            }
+            // 本周强推
+            .recommend {
+              margin-top: 10px;
+              background: $assistDeepColor;
+              padding: 15px;
+              h3 {
+                height: 40px;
+                line-height: 40px;
+              }
+              ul {
+                li {
+                  font-size: 16px;
+                  color: #555555;
+                  height: 35px;
+                  line-height: 35px;
+                  border-top: 1px solid #cccccc;
+                  padding-left: 5px;
+                  span {
+                    float: right;
+                    color: #979797;
+                    font-size:14px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        // 目录
+        .catalogue {
+          display: none;
+          margin-top: 50px;
+          // 头部
+          .catalogue-header {
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            border-bottom: 1px solid #555555;
+            h3 {
+
+              float: left;
+            }
+            .pay-type {
+              display: inline-block;
+              float: left;
+              background: #22cc00;
+              font-size: 13px;
+              color: #ffffff;
+              line-height: 18px;
+              margin: 10px 10px 0 10px;
+              padding: 0 2px;
+            }
+            .num-words {
+              display: inline-block;
+              float: left;
+              color: #777777;
+              font-size: 15px;
+            }
+            .read-by-reel {
+              cursor: pointer;
+              display: inline-block;
+              float: right;
+              background: #bf2c24;
+              line-height:29px;
+              margin-top: 3px;
+              padding: 0 10px;
+              color: #ffffff;
+            }
+          }
+          // 目录列表
+          ul {
+            overflow: hidden;
+            li {
+              float: left;
+              width: 33.3%;
+              height: 45px;
+              line-height:45px;
+              a {
+                color: #585858;
+                &:hover {
+                  color: #ff0000;
+                }
+              }
+              border-bottom: 1px solid #dddddd;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@import "../common/footer";

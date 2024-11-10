@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ykjzone.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.ykjzone.pojo.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="last_login" jdbcType="TIMESTAMP" property="last_login" />
+    <result column="is_superuser" jdbcType="BIT" property="is_superuser" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="is_active" jdbcType="BIT" property="is_active" />
+    <result column="is_author" jdbcType="BIT" property="is_author" />
+    <result column="is_staff" jdbcType="BIT" property="is_staff" />
+    <result column="date_joined" jdbcType="DATE" property="date_joined" />
+    <result column="pen_name" jdbcType="VARCHAR" property="pen_name" />
+  </resultMap>
+  <resultMap id="PermResultMap" extends="BaseResultMap" type="com.ykjzone.pojo.User">
+    <collection property="groups" javaType="List" ofType="com.ykjzone.pojo.Group">
+      <id column="gid" property="id" />
+      <result column="gname" property="name" />
+    </collection>
+    <collection property="permissions" javaType="List" ofType="com.ykjzone.pojo.Permission">
+      <id column="pid" property="id" />
+      <result column="pcodename" property="codename" />
+      <association property="content_type" javaType="com.ykjzone.pojo.ContentType">
+        <id column="ctid" property="id" />
+        <result column="ctmodel" property="model" />
+      </association>
+    </collection>
+  </resultMap>
+  <resultMap id="StaffResultMap" type="com.ykjzone.pojo.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="is_superuser" jdbcType="BIT" property="is_superuser" />
+    <result column="is_active" jdbcType="BIT" property="is_active" />
+    <result column="is_author" jdbcType="BIT" property="is_author" />
+    <result column="is_staff" jdbcType="BIT" property="is_staff" />
+    <collection property="groups" javaType="List" ofType="com.ykjzone.pojo.Group">
+      <id column="gid" property="id" />
+      <result column="gname" property="name" />
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, password, last_login, is_superuser, telephone, username, email, is_active, is_author, 
+    is_staff, date_joined, pen_name
+  </sql>
+  <sql id="Perm_Column_List">
+    u.id, password, last_login, is_superuser, telephone, username, email, is_active, is_author,
+    is_staff, date_joined, pen_name, g.id gid, g.name gname, p.id pid, p.codename pcodename, ct.id ctid, ct.model ctmodel
+  </sql>
+  <select id="selectByExample" parameterType="com.ykjzone.pojo.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from xsauth_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xsauth_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTelephone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xsauth_user
+    where telephone = #{telephone,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xsauth_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByTelephoneAndPassword" resultMap="PermResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from xsauth_user u
+    where telephone = #{telephone,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
+  <select id="selectStaffs" resultMap="StaffResultMap">
+    select
+    u.id, telephone, username, email, is_superuser, is_staff, is_active, is_author, g.id gid, g.name gname
+    from xsauth_user u left join xsauth_user_groups ug on u.id = ug.user_id join auth_group g on g.id = ug.group_id
+    where u.is_staff = 1 and u.is_active = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from xsauth_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.User" useGeneratedKeys="true">
+    insert into xsauth_user (id, password, is_superuser,
+      telephone, username,
+      is_active, is_author, is_staff, 
+      date_joined)
+    values (#{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{is_superuser,jdbcType=BIT},
+      #{telephone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+      #{is_active,jdbcType=BIT}, #{is_author,jdbcType=BIT}, #{is_staff,jdbcType=BIT}, 
+      #{date_joined,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.User" useGeneratedKeys="true">
+    insert into xsauth_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="password != null">
+        password,
+      </if>
+      <if test="last_login != null">
+        last_login,
+      </if>
+      <if test="is_superuser != null">
+        is_superuser,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="is_active != null">
+        is_active,
+      </if>
+      <if test="is_author != null">
+        is_author,
+      </if>
+      <if test="is_staff != null">
+        is_staff,
+      </if>
+      <if test="date_joined != null">
+        date_joined,
+      </if>
+      <if test="pen_name != null">
+        pen_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="last_login != null">
+        #{last_login,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is_superuser != null">
+        #{is_superuser,jdbcType=BIT},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="is_active != null">
+        #{is_active,jdbcType=BIT},
+      </if>
+      <if test="is_author != null">
+        #{is_author,jdbcType=BIT},
+      </if>
+      <if test="is_staff != null">
+        #{is_staff,jdbcType=BIT},
+      </if>
+      <if test="date_joined != null">
+        #{date_joined,jdbcType=DATE},
+      </if>
+      <if test="pen_name != null">
+        #{pen_name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ykjzone.pojo.User">
+    update xsauth_user
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="last_login != null">
+        last_login = #{last_login,jdbcType=TIMESTAMP},
+      </if>
+      <if test="is_superuser != null">
+        is_superuser = #{is_superuser,jdbcType=BIT},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="is_active != null">
+        is_active = #{is_active,jdbcType=BIT},
+      </if>
+      <if test="is_author != null">
+        is_author = #{is_author,jdbcType=BIT},
+      </if>
+      <if test="is_staff != null">
+        is_staff = #{is_staff,jdbcType=BIT},
+      </if>
+      <if test="date_joined != null">
+        date_joined = #{date_joined,jdbcType=DATE},
+      </if>
+      <if test="pen_name != null">
+        pen_name = #{pen_name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ykjzone.pojo.User">
+    update xsauth_user
+    set password = #{password,jdbcType=VARCHAR},
+      last_login = #{last_login,jdbcType=TIMESTAMP},
+      is_superuser = #{is_superuser,jdbcType=BIT},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      is_active = #{is_active,jdbcType=BIT},
+      is_author = #{is_author,jdbcType=BIT},
+      is_staff = #{is_staff,jdbcType=BIT},
+      date_joined = #{date_joined,jdbcType=DATE},
+      pen_name = #{pen_name,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

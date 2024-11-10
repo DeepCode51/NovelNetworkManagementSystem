@@ -1,0 +1,435 @@
+@import '../common/init';
+@import '../common/constants';
+
+/* 头部 */
+@mixin header {
+    width: 100%;
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+    h2 {
+        display: inline-block;
+    }
+    span {
+        font-size: 14px;
+        color: #777777;
+    }
+}
+/* ul 列表 */
+@mixin list {
+    ul {
+        li {
+            border-bottom: 1px solid #eeeeee;
+            overflow: hidden;
+            line-height: 35px;
+            &:last-of-type {
+                border-bottom: 0 solid #eeeeee;
+            }
+            span.novel-cate {
+                a {
+                    margin-left: -6px;
+                    font-size: 15px;
+                    color: #777777;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+
+            }
+            span.novel-name {
+                a {
+                    margin-left: -8px;
+                    font-size: 15px;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+            }
+            span.novel-author {
+                a {
+                    font-size: 15px;
+                    float: right;
+                    display: inline-block;
+                    color: #888888;
+                    &:hover {
+                        color: #ff2222;
+                    }
+                }
+            }
+        }
+    }
+}
+
+header {
+    .header-top {
+        background: $assistDeepColor;
+        width: 100%;
+        .top-container {
+            width: $pageWidth;
+            margin: 0 auto;
+            overflow: hidden;
+            ul {
+                height: 37px;
+                float: left;
+                li {
+                    float: left;
+                    line-height: 37px;
+                    width: 90px;
+                    text-align: center;
+                    &.active {
+                        border-left: 1px solid $borderColor;
+                        border-right: 1px solid $borderColor;
+                        background: #ffffff;
+                    }
+                    a {
+                        font-size: 14px;
+                        color: #575757;
+                    }
+                }
+                i{
+                    float: left;
+                    line-height: 37px;
+                    color: #d9d9d9;
+                    font-style: normal;
+                }
+            }
+            .auth {
+                float: right;
+                line-height: 37px;
+            }
+        }
+    }
+    .header-middle {
+        height: 84px;
+        .middle-container {
+            width: $pageWidth;
+            margin: 0 auto;
+            height: 100%;
+            overflow: hidden;
+            // logo
+            .logo {
+                width: 218px;
+                height: 55px;
+                margin-top: 14px;
+                float: left;
+                margin-right: 200px;
+                a {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    background: url('https://qidian.gtimg.com/qd/images/logo.beebc.png');
+                }
+            }
+            // 搜索框
+            form{
+                float: left;
+                width: 400px;
+                margin-top: 21px;
+                #search-text{
+                    padding: 0 10px;
+                    height: 40px;
+                    width: 348px;
+                    float: left;
+                    border: 1px solid #dbdbdb;
+                    box-sizing: border-box;
+                }
+
+                #search-submit{
+                    height: 0px;
+                    width: 0px;
+                }
+                span {
+                    float: left;
+                    font-size: 24px;
+                    color: #fff;
+                    background: #bf2c24;
+                    text-align: center;
+                    line-height: 40px;
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+            // 我的书架
+            .my-bookrack {
+                float: right;
+                width: 120px;
+                height: 40px;
+                background: #ffffff;
+                margin-top: 21px;
+                box-sizing: border-box;
+                border: 2px solid #aaaaaa;
+                text-align: center;
+                line-height: 36px;
+                i {
+                    font-size: 20px;
+                    color: #000000;
+                }
+                span {
+                    font-size: 16px;
+                    color: #000000;
+
+                }
+            }
+        }
+    }
+    .header-bottom {
+        width: 100%;
+        height: 40px;
+        background: #545454;
+        .bottom-container {
+            width: $pageWidth;
+            margin: 0 auto;
+            ul {
+                overflow: hidden;
+                .first {
+                    float: left;
+                    width: 216px;
+                    background: #454545;
+                    margin-right: 20px;
+                    i {
+                        color: #ffffff;
+                        margin: 0 4px 0 14px;
+                    }
+                    a {
+                        color: #ffffff;
+                        line-height: 40px;
+                    }
+                }
+                .nav-li {
+                    float: left;
+                    a {
+                        padding: 0 32px;
+                        display: inline-block;
+                        color: #ffffff;
+                        line-height: 36px;
+                        border-top: 2px solid #545454;
+                        border-bottom: 2px solid #545454;
+                        box-sizing: border-box;
+                        &:hover {
+                            border-top: 2px solid #ff3333;
+                            background: #454545;
+                        }
+                    }
+                }
+                .game-phone{
+                    float: right;
+                    padding: 0 8px;
+                    a{
+                        color: #ffffff;
+                        line-height: 40px;
+                        i {
+                            color: #ffffff;
+                            margin: 0 3px;
+                        }
+                        &:hover {
+                            color: #eeee00;
+                        }
+                        &:hover i {
+                            color: #eeee00;
+                        }
+                    }
+                }
+                .game-web {
+                    float: right;
+                    padding: 0 8px;
+                    a{
+                        color: #ffffff;
+                        line-height: 40px;
+                        i {
+                            color: #ffffff;
+                            margin: 0 3px;
+                        }
+                        &:hover {
+                            color: #eeee00;
+                        }
+                        &:hover i {
+                            color: #eeee00;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.main {
+    .wrapper {
+        width: $pageWidth;
+        margin: 20px auto;
+        overflow: hidden;
+        // 搜索结果
+        .search-wrapper {
+            float: left;
+            width: 954px;
+            .search-header {
+                h2 {
+                    padding: 5px 0;
+                }
+                ul {
+                    margin-top: 15px;
+                    background: $assistDeepColor;
+                    overflow: hidden;
+                    height: 40px;
+                    li {
+                        height: 40px;
+                        line-height: 40px;
+                        float: left;
+                        margin: 0 6px;
+                        a {
+                            font-size: 14px;
+                            color: #999999;
+                            padding: 0 5px;
+                            display: inline-block;
+                            &:hover {
+                                color: #ff9900;
+                            }
+                        }
+                        &.active {
+                            a{
+                                color: #ff0000;
+                            }
+                        }
+                    }
+                }
+            }
+            .search-body {
+                .novel-media {
+                    width: 100%;
+                    ul {
+                        width: 100%;
+                        li {
+                            overflow: hidden;
+                            width: 100%;
+                            padding: 30px 0;
+                            border-top: 1px solid #dddddd;
+                            .novel-img {
+                                float: left;
+                                width: 108px;
+                                height: 144px;
+                                margin-right: 20px;
+                                a {
+                                    display: block;
+                                    width: 100%;
+                                    height: 100%;
+                                    img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                            .novel-info {
+                                width: 550px;
+                                height: 144px;
+                                float: left;
+                                position: relative;
+                                .novel-title {
+                                    a {
+                                        color: #555555;
+                                        font-size: 20px;
+                                        .keyword {
+                                            color: #cc0000;
+                                        }
+                                    }
+                                }
+                                .novel-author {
+                                    width: 100%;
+                                    a {
+                                        color: #858585;
+                                        font-size: 15px;
+                                    }
+                                    a.author-name {
+                                    }
+                                    a.category {
+                                    }
+                                    a.is_complete {
+
+                                    }
+                                }
+                                .novel-profile {
+                                    font-size: 15px;
+                                    color: #898989;
+                                    margin-top: 8px;
+                                    line-height: 24px;
+                                    height:72px;
+                                    overflow: hidden;
+                                    p {
+                                        color: #464646;
+                                    }
+                                }
+                                .recent {
+                                    font-size: 14px;
+                                    color: #0d6aad;
+                                    position: absolute;
+                                    bottom: 0;
+                                }
+
+                            }
+                            .novel-operate {
+                                float: right;
+                                width: 250px;
+                                height: 144px;
+                                position: relative;
+                                .words-num {
+                                    text-align: right;
+                                    font-size: 15px;
+                                    margin-top: 20px;
+                                }
+                                p {
+                                    width: 100%;
+                                    position: absolute;
+                                    bottom: 0;
+                                    .detail {
+                                        float: right;
+                                        display: inline-block;
+                                        background: #cc0000;
+                                        color: #ffffff;
+                                        padding: 8px 20px;
+                                    }
+                                    .collect {
+                                        float: right;
+                                        margin-left: 20px;
+                                        display: inline-block;
+                                        padding: 7px 19px;
+                                        &.collect-btn {
+                                            border: 1px solid #26a;
+                                            color: #26a;
+                                        }
+                                        &.collected {
+                                            color: #666666;
+                                            border: 1px solid #666666;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .no-result {
+                            color: #aaaaaa;
+                            font-size: 40px;
+                            margin-top: 20px;
+                        }
+                    }
+                }
+            }
+        }
+        // 本周强推
+        .recommend-wrapper {
+            float: right;
+            width: $sideWidth;
+            .recommend-header {
+                @include header;
+            }
+            @include list;
+        }
+    }
+}
+footer {
+    margin-top: 50px;
+    padding: 40px 0;
+    background: #eeeeee;
+    .statement {
+        p {
+            text-align: center;
+            color: #9a9a9a;
+            font-size: 14px;
+        }
+    }
+}

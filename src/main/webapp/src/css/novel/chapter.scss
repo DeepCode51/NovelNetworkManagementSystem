@@ -1,0 +1,614 @@
+@import '../common/init';
+@import '../common/constants';
+
+body{
+  background: #ccddff;
+  cursor: default;
+}
+@mixin floating($width,$fontSize,$color,$paddingLeft) {
+  width: $width;
+  position: relative;
+  a {
+    width: 100%;
+    line-height: 56px;
+    display: block;
+    color: $color;
+    font-size: $fontSize;
+    text-align: center;
+    border-bottom: 2px solid #eeeeee;
+  }
+  &:hover {
+    background: #ffffff;
+
+    a {
+      border-top: 2px solid #ff3333;
+      border-bottom: 2px solid #ffffff;
+    }
+
+    .dropdown {
+      display: block;
+    }
+  }
+  .dropdown {
+    width: $width;
+    position: absolute;
+    background: #ffffff;
+    display: none;
+
+    a {
+      height: 42px;
+      line-height: 42px;
+      text-align: left;
+      padding-left: $paddingLeft;
+      color: #000000;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      border: 0 solid #000000;
+
+      &:hover {
+        background: #dddddd;
+      }
+    }
+  }
+}
+
+header {
+  min-width: 1200px;
+  $height: 60px;
+  width: 100%;
+  height: $height;
+  opacity: 0.8;
+  background: #eeeeee;
+  position: relative;
+  z-index: 1;
+
+  div {
+    width: $pageWidth;
+    margin: 0 auto;
+    // 导航
+    ul {
+      float: left;
+
+      li {
+        float: left;
+        height: $height;
+        width: 100px;
+
+
+        &:first-of-type {
+          @include floating(125px, 18px, #000000, 20px);
+        }
+
+        &:last-of-type {
+          @include floating(100px, 15px, #000000, 10px);
+        }
+
+        a {
+          display: block;
+          color: #000000;
+          text-align: center;
+          line-height: $height - 4px;
+          height: $height;
+          font-size: 15px;
+          box-sizing: border-box;
+          border-top: 2px solid #eeeeee;
+          border-bottom: 2px solid #eeeeee;
+
+          &:hover {
+            border-top: 2px solid #ff3333;
+            background: #ffffff;
+            border-bottom: 2px solid #ffffff;
+          }
+        }
+      }
+    }
+
+    // 搜索
+    .search {
+      float: right;
+      width: 230px;
+      height: $height;
+      margin-left: 80px;
+
+      form {
+        width: 100%;
+        height: 100%;
+
+        .text {
+          float: left;
+          width: 180px;
+          height: 26px;
+          border: none;
+          margin-top: 18px;
+          border-bottom: 1px solid #bbbbbb;
+          background: 0 0;
+          line-height: 30px;
+          color: #000000;
+          font-size: 14px;
+          padding: 0 2px;
+        }
+
+        .submit-btn {
+          float: left;
+          margin-top: 18px;
+          margin-left: 4px;
+          border: none;
+          width: 28px;
+          height: 28px;
+          color: #000000;
+          font-size: 18px;
+          text-align: center;
+          line-height: 28px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    // 登录注册
+    .auth-group {
+      float: right;
+      height: $height;
+      line-height: $height;
+      width: 200px;
+      text-align: center;
+
+      a.signin {
+        font-size: 15px;
+        color: #000000;
+
+        &:hover {
+          color: #ff0000;
+        }
+      }
+
+      a.signout {
+        font-size: 15px;
+        color: #000000;
+        margin-left: 5px;
+
+        &:hover {
+          color: #ff0000;
+        }
+      }
+    }
+
+    // 我的书架
+    .my-book {
+      float: right;
+      width: 100px;
+      height: $height;
+      text-align: center;
+      line-height: $height;
+
+      &:hover {
+        background: #ffffff;
+      }
+
+      i {
+        color: #000000;
+        font-size: 15px;
+      }
+
+      span {
+        color: #000000;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+.main {
+  min-width: 1200px;
+  width: 100%;
+  $pageWidth: 798px;
+  $backgroundColor: #f8f3e9;
+  .wrapper {
+    width: $pageWidth + 2px;
+    margin: 0 auto;
+    // 路径
+    .path-wrapper {
+      margin: 15px 0;
+      .path {
+        a {
+          font-size: 14px;
+          color: #545454;
+        }
+
+        i {
+          font-size: 14px;
+          color: #545454;
+        }
+      }
+    }
+
+    // body
+    .body-wrapper {
+      position: relative;
+      // 左侧边栏
+      .left-sidebar {
+        position: absolute;
+        top: 0;
+        margin-left: -68px;
+        width: 60px;
+        background: $backgroundColor;
+        ul {
+          width: 58px;
+          border: 1px solid #aaaaaa;
+          li {
+            width: 100%;
+            height: 58px;
+            text-align: center;
+            border-bottom: 1px solid #aaaaaa;
+            overflow: hidden;
+            &:last-of-type {
+              border-bottom: 0 solid #aaaaaa;
+            }
+            span.collected {
+                display: block;
+                font-size: 12px;
+                color: #989898;
+                margin: 22px 0;
+                
+            }
+            a {
+              width: 100%;
+              height: 100%;
+              display: block;
+              overflow: hidden;
+              i {
+                width: 16px;
+                height: 16px;
+                display: block;
+                margin: 10px auto;
+              }
+              span {
+                font-size: 14px;
+                display: block;
+                color: #989898;
+              }
+              &:hover {
+                i {
+                  color: #ee0000;
+                }
+                span {
+                  color: #ee0000;
+                }
+              }
+            }
+          }
+        }
+      }
+      // 右侧边栏
+      .right-sidebar {
+        width: 60px;
+        background: $backgroundColor;
+        position: absolute;
+        margin-left: 808px;
+        bottom: 0;
+        ul {
+          width: 58px;
+          border: 1px solid #aaaaaa;
+          li {
+            width: 100%;
+            height: 58px;
+            border-bottom: 1px solid #aaaaaa;
+            text-align: center;
+            &:last-of-type {
+              border-bottom: 0 solid #aaaaaa;
+              a {
+                i {
+                  margin: 21px auto;
+                }
+              }
+            }
+            a {
+              width: 100%;
+              height: 100%;
+              display: block;
+              overflow: hidden;
+              i {
+                display: block;
+                margin: 10px auto;
+                width: 16px;
+                height: 16px;
+              }
+              span {
+                display: block;
+                font-size: 14px;
+                color: #898989;
+              }
+
+              &:hover {
+                i {
+                  color: #ee0000;
+                }
+                span {
+                  color: #ee0000;
+                }
+              }
+            }
+          }
+        }
+      }
+      // 封面
+      .novel-cover {
+        width: $pageWidth;
+        border: 1px solid #cccccc;
+        background: $backgroundColor;
+        margin-bottom: 30px;
+        .novel-cover-core {
+          width: 780px;
+          border: 1px solid #cccccc;
+          margin: 9px;
+          // 图片
+          .novel-img {
+            width: 120px;
+            height: 160px;
+            margin: 64px auto 30px;
+            border: 1px solid #cccccc;
+            padding: 4px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          // 书名
+          .novel-name {
+            h1 {
+              text-align: center;
+              font-weight: lighter;
+            }
+          }
+          // 作者
+          .novel-author {
+            text-align: center;
+            margin-top: 10px;
+            color: #989898;
+          }
+          // 图书信息
+          .novel-info-wrapper {
+            .novel-info {
+              width: 440px;
+              overflow: hidden;
+              margin: 40px auto;
+              // 公共
+              div {
+                float: left;
+                margin: 0 40px;
+
+                span {
+                  display: block;
+                  text-align: center;
+
+                  &.info {
+                    font-size: 18px;
+                  }
+
+                  &.hint {
+                    font-size: 14px;
+                    color: #989898;
+                  }
+                }
+              }
+              // 类型
+              .novel-category {
+                .category {
+
+                }
+
+                .category-hint {
+
+                }
+              }
+              // 上架时间
+              .novel-pubdate {
+
+                .pubdate{
+
+                }
+                .pubdate-hint {
+                }
+              }
+              // 字数
+              .novel-num-words {
+                .num-words {
+
+                }
+
+                .num-words-hint {
+
+                }
+              }
+            }
+          }
+          // 备注
+          .remark {
+            h4 {
+              font-weight: lighter;
+              text-align: center;
+            }
+          }
+          // 其他
+          .other-wrapper {
+            .other {
+              width: 300px;
+              margin: 10px auto 0;
+              overflow: hidden;
+              .zhishi {
+                float: left;
+                display: inline-block;
+                width: 150px;
+                font-size: 14px;
+                color: #989898;
+                text-align: center;
+              }
+              .dizi {
+                float: left;
+                display: inline-block;
+                width: 150px;
+                font-size: 14px;
+                color: #989898;
+                text-align: center;
+              }
+            }
+          }
+          // 声明
+          .statement {
+            text-align: center;
+            font-size: 14px;
+            color: #545454;
+            margin-top: 50px;
+          }
+          // 版权
+          .copyright {
+            text-align: center;
+            font-size: 14px;
+            color: #989898;
+            margin: 10px 0 30px;
+          }
+        }
+        }
+      // 内容
+      .novel-content {
+        width: $pageWidth;
+        border: 1px solid #aaaaaa;
+        background: $backgroundColor;
+        padding: 60px;
+        box-sizing: border-box;
+        // 头部
+        .header {
+          margin-bottom: 30px;
+          // 标题
+          .chapter-title {
+            margin: 5px 0;
+            .num-chapter {
+
+            }
+            .title {
+
+            }
+          }
+          // 信息
+          .chapter-info {
+            overflow: hidden;
+            height: 30px;
+            line-height: 30px;
+            // 书名
+            .novel-name {
+              float: left;
+              margin-right: 20px;
+              a {
+                color: #898989;
+                font-size: 14px;
+                &:hover {
+                  color: #ff0000;
+                }
+              }
+            }
+            // 作者
+            .novel-author {
+              margin-right: 20px;
+              float: left;
+              a {
+                font-size: 14px;
+                color: #898989;
+                &:hover {
+                  color: #ff0000;
+                }
+              }
+
+            }
+            // 字数
+            .novel-num-words {
+              float: left;
+              font-size: 14px;
+              margin-right: 20px;
+              color: #898989;
+            }
+            // 发布时间
+            .novel-pubtime {
+              float: left;
+              font-size: 14px;
+              color: #898989;
+            }
+          }
+        }
+        .content {
+          p {
+            font-size: 19px;
+            line-height: 50px;
+          }
+        }
+      }
+      // 翻页按钮
+      .novel-switch {
+        width: $pageWidth;
+        height: 70px;
+        //line-height: 70px;
+        overflow: hidden;
+        margin: 30px 0;
+        border: 1px solid #aaaaaa;
+        .switch-btn {
+          width: 265px;
+          height: 70px;
+          float: left;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            text-align: center;
+            background: $backgroundColor;
+            &:hover {
+              background: #e7e2d8;
+            }
+            &.disabled{
+              span {
+                color: #bbbbbb;
+              }
+            }
+            &.disabled:hover{
+              cursor: no-drop;
+              background: $backgroundColor;
+            }
+            span {
+              width: 100%;
+              display: inline-block;
+              margin: 20px 0;
+              height: 30px;
+              line-height: 30px;
+            }
+          }
+          // 中间按钮两边加边框
+          &.catalogue{
+            width: 267px;
+            a {
+              width: 265px;
+              margin: 0 auto;
+              span {
+                width: 265px;
+                margin-left: -1px;
+                border-left: 1px solid #aaaaaa;
+                border-right: 1px solid #aaaaaa;
+              }
+            }
+          }
+        }
+        // 上一章
+        .previous {
+
+        }
+        // 目录
+        .catalogue {
+
+        }
+        // 下一章
+        .next {
+
+        }
+      }
+    }
+  }
+}

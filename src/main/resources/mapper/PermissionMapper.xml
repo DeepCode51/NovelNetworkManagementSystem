@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ykjzone.mapper.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.ykjzone.pojo.Permission">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="content_type_id" jdbcType="INTEGER" property="content_type_id" />
+    <result column="codename" jdbcType="VARCHAR" property="codename" />
+  </resultMap>
+  <resultMap id="ByUserIdResultMap" type="com.ykjzone.pojo.Permission">
+    <id column="pid" jdbcType="INTEGER" property="id" />
+    <result column="pname" jdbcType="VARCHAR" property="name" />
+    <result column="content_type_id" jdbcType="INTEGER" property="content_type_id" />
+    <result column="pcodename" jdbcType="VARCHAR" property="codename" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, content_type_id, codename
+  </sql>
+  <select id="selectByExample" parameterType="com.ykjzone.pojo.PermissionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from auth_permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from auth_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" parameterType="java.lang.String" resultMap="ByUserIdResultMap">
+    select
+    p.id pid, p.name pname, p.content_type_id, p.codename pcodename
+    from xsauth_user u, auth_group g, xsauth_user_groups ug, auth_group_permissions gp, auth_permission p
+    where u.id = ug.user_id and ug.group_id = g.id and g.id = gp.group_id and p.id = gp.permission_id and u.id = #{user_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from auth_permission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Permission" useGeneratedKeys="true">
+    insert into auth_permission (name, content_type_id, codename
+      )
+    values (#{name,jdbcType=VARCHAR}, #{content_type_id,jdbcType=INTEGER}, #{codename,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.ykjzone.pojo.Permission" useGeneratedKeys="true">
+    insert into auth_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="content_type_id != null">
+        content_type_id,
+      </if>
+      <if test="codename != null">
+        codename,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content_type_id != null">
+        #{content_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="codename != null">
+        #{codename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ykjzone.pojo.Permission">
+    update auth_permission
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content_type_id != null">
+        content_type_id = #{content_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="codename != null">
+        codename = #{codename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ykjzone.pojo.Permission">
+    update auth_permission
+    set name = #{name,jdbcType=VARCHAR},
+      content_type_id = #{content_type_id,jdbcType=INTEGER},
+      codename = #{codename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

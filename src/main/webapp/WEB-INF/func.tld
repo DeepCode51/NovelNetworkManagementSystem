@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+    <description>JSTL 1.1 functions library</description>
+    <display-name>JSTL functions</display-name>
+    <tlib-version>1.1</tlib-version>
+    <short-name>func</short-name>
+    <uri>/WEB-INF/func.tld</uri>
+    <function>
+        <description>
+            Adjusts the length of the string to exceed partial omissions.
+        </description>
+        <name>truncate</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>java.lang.String truncate(java.lang.String,int)</function-signature>
+        <example>
+            novel name: ${func:truncate(java.lang.String,int)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Adjusts the length of the profile string to exceed partial omissions.
+        </description>
+        <name>profile_truncate</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>java.lang.String profile_truncate(java.lang.String,int)</function-signature>
+        <example>
+            profile: ${func:profile_truncate(java.lang.String,int)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Converts all of the characters of a string to lower case.
+        </description>
+        <name>getCategoryName</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>java.lang.String getCategoryName(int,java.lang.String)</function-signature>
+        <example>
+            Category name: ${func:getCategoryName(int,java.lang.String)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Remove html tags.
+        </description>
+        <name>htmlRemoveTag</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>java.lang.String htmlRemoveTag(java.lang.String)</function-signature>
+        <example>
+            profile: ${func:htmlRemoveTag(java.lang.String)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Count how many million words there are in the chapter.
+        </description>
+        <name>wordsNumFilter</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>float wordsNumFilter(int)</function-signature>
+        <example>
+            profile: ${func:wordsNumFilter(int)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Simple format date.
+        </description>
+        <name>formatDate</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>java.lang.String formatDate(java.util.Date,java.lang.String))</function-signature>
+        <example>
+            profile: ${func:formatDate(Date, String)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Finds if the novel list contains the specified novel.
+        </description>
+        <name>hasNovel</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>boolean hasNovel(java.util.List,com.ykjzone.pojo.Novel)</function-signature>
+        <example>
+            is_collection: ${func:hasNovel(List, Novel)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Check to see if the user has this permission.
+        </description>
+        <name>hasPermission</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>boolean hasPermission(com.ykjzone.pojo.User,java.lang.String))</function-signature>
+        <example>
+            has_permission: ${func:hasPermission(User, String)}
+        </example>
+    </function>
+
+    <function>
+        <description>
+            Determines whether the group list contains the specified group.
+        </description>
+        <name>hasGroup</name>
+        <function-class>com.ykjzone.util.Filters</function-class>
+        <function-signature>boolean hasGroup(java.util.List, com.ykjzone.pojo.Group)</function-signature>
+        <example>
+            has_group: ${func:hasGroup(List, group)}
+        </example>
+    </function>
+</taglib>

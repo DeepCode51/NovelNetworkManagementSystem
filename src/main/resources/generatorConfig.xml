@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables"    targetRuntime="MyBatis3">
+        <!--避免生成重复代码的插件-->
+        <!--<plugin type="com.how2java.tmall.util.OverIsMergeablePlugin" />-->
+
+        <!--是否在代码中显示注释-->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://localhost/xiaoshuo?serverTimezone=UTC" userId="root" password="Ykj19971219">
+        </jdbcConnection>
+        <!--不知道做什么用的。。。反正贴上来了~-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成pojo类存放位置-->
+        <javaModelGenerator targetPackage="com.ykjzone.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成xml映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成mapper类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ykjzone.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表及类名-->
+
+        <table tableName="novel" domainObjectName="Novel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+            <property name="my.isgen.usekeys" value="true"/>
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <table tableName="novel_category" domainObjectName="Category" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <table tableName="novel_chapter" domainObjectName="Chapter" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <table tableName="novel_tag" domainObjectName="Tag" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <table tableName="novel_advertisement" domainObjectName="Advertisement" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <table tableName="novel_excellentworks" domainObjectName="Excellentworks" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="novel_banner" domainObjectName="Banner" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="xsauth_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="xsauth_user_collect" domainObjectName="UserCollect" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="xsauth_user_groups" domainObjectName="UserGroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="xsauth_user_read" domainObjectName="UserRead" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="xsauth_user_user_permissions" domainObjectName="UserPermissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="auth_group" domainObjectName="Group" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="auth_group_permissions" domainObjectName="GroupPermissions" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="auth_permission" domainObjectName="Permission" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="django_content_type" domainObjectName="ContentType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false">
+        <property name="my.isgen.usekeys" value="true"/>
+        <property name="useActualColumnNames" value="true"/>
+        <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

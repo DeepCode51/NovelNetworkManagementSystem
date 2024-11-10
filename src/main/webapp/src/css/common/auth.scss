@@ -1,0 +1,145 @@
+@import "constants";
+@import "init";
+
+
+.mask-wrapper{
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    z-index: 101;
+    .auth-wrapper{
+        $authWrapperHeight: 540px;
+        $authWrapperWidth: 400px;
+        width: $authWrapperWidth;
+        height: $authWrapperHeight;
+        //background: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -$authWrapperHeight/2 + 30px;
+        margin-left: -$authWrapperWidth/2;
+        .close-wrapper{
+            width: 100%;
+            height: 40px;
+            background: #fff;
+            .close-btn{
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                font-size: 18px;
+                float: right;
+                margin: 5px 5px 0 0;
+                color: $assistFontColor;
+                cursor: pointer;
+            }
+        }
+        .auth-inner-wrapper{
+            width: 100%;
+            height: $authWrapperHeight - 40px;
+            position: relative;
+            overflow: hidden;
+            .scroll-wrapper{
+                width: $authWrapperWidth * 2;
+                //height: 100%;
+                //background: #fff;
+                position: absolute;
+                left: 0;
+                top: 0;
+                .auth-group{
+                    width: $authWrapperWidth;
+                    // height: 自动
+                    padding: 0 20px 20px;
+                    box-sizing: border-box;
+
+                    .top-group{
+                        height: 36px;
+                        line-height: 33px;
+                        border-bottom: 1px solid $lineColor;
+
+                        .title{
+                            float: left;
+                            color: $mainFontColor;
+                            border-bottom: 3px solid $theamColor;
+                        }
+                        .switch{
+                            float: right;
+                            color: $theamColor;
+                        }
+                    }
+                    .form-group{
+                        margin-top: 20px;
+                        .input-group{
+                            height: 40px;
+                            margin-bottom: 20px;
+                            .form-control{
+                                width: 100%;
+                                height: 100%;
+                                border: 1px solid #ccc;
+                                padding: 10px;
+                                box-sizing: border-box;
+                                outline: none;
+                            }
+                            .remember-label{
+                                font-size: 14px;
+                                line-height: 40px;
+                            }
+                            .submit-btn{
+                                width: 100%;
+                                height: 100%;
+                                background: $theamColor;
+                                border: none;
+                                color: #fff;
+                                cursor: pointer;
+                            }
+                            .short-input-group{
+                                float: left;
+                                width: 250px;
+                                height: 40px;
+                            }
+                            .input-group-addon{
+                                float: right;
+                                width: 100px;
+                                box-sizing: border-box;
+                                .img-captcha{
+                                    cursor: pointer;
+                                }
+                                .sms-captcha-btn{
+                                    width: 100%;
+                                    height: 40px;
+                                    border: 1px solid $theamColor;
+                                    color: $theamColor;
+                                    box-sizing: border-box;
+                                    display: inline-block;
+                                    line-height: 40px;
+                                    text-align: center;
+                                    cursor: pointer;
+                                    font-size: 15px;
+                                }
+                                .disabled{
+                                    color: #ccc;
+                                    border: 1px solid #ccc;
+                                    cursor: default;
+                                }
+                            }
+                        }
+                    }
+                }
+                .signin-group{
+                    float: left;
+                    background: #fff;
+                }
+                .signup-group{
+                    float: left;
+                    background: #fff;
+                }
+            }
+        }
+    }
+}
